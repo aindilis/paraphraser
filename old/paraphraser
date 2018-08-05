@@ -1,0 +1,19 @@
+#!/usr/bin/perl -w
+
+use Paraphraser;
+
+use UniLang::Agent::Agent;
+use UniLang::Util::Message;
+
+$UNIVERSAL::agent = UniLang::Agent::Agent->new
+  (Name => "Paraphraser",
+   ReceiveHandler => \&Receive);
+$UNIVERSAL::paraphraser = Paraphraser->new();
+
+sub Receive {
+  my %args = @_;
+  $UNIVERSAL::paraphraser->ProcessMessage
+    (Message => $args{Message});
+}
+
+$UNIVERSAL::paraphraser->Execute();
